@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "259088626075",
+    "project_id": "stravanatif",
+    "storage_bucket": "stravanatif.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259088626075:android:610050acde39cb6c9c313e",
+        "android_client_info": {
+          "package_name": "com.stravanatif"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxk0XZLh7DYLaaNeGBMHqRZ4ZL1GYMZXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
