@@ -12,7 +12,12 @@
           "package_name": "com.stravanatif"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "259088626075-kqtq7m780cev7o8ilgoc6ng4n3jig41h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAxk0XZLh7DYLaaNeGBMHqRZ4ZL1GYMZXI"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259088626075-kqtq7m780cev7o8ilgoc6ng4n3jig41h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
