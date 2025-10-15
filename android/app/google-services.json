@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "259088626075-9u1dt8tnmrbortop4hder3u47ri4uug3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stravanatif",
+            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          }
+        },
+        {
           "client_id": "259088626075-kqtq7m780cev7o8ilgoc6ng4n3jig41h.apps.googleusercontent.com",
           "client_type": 3
         }
