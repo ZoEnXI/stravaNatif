@@ -1,5 +1,5 @@
 import { Button, Text } from '@react-navigation/elements';
-import { StyleSheet, View } from 'react-native';
+import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import {useEffect, useState} from "react";
 import auth, {FirebaseAuthTypes, getAuth, onAuthStateChanged} from "@react-native-firebase/auth";
 
@@ -7,6 +7,8 @@ export function Home() {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     useEffect(() => {
         auth().onAuthStateChanged(userState => {
@@ -22,6 +24,8 @@ export function Home() {
         return (
             <View>
                 <Text>Login</Text>
+                <TextInput value={email} onChangeText={setEmail} textContentType={'emailAddress'} placeholder={'Email'} />
+                <TextInput value={password} onChangeText={setPassword} textContentType={'password'} placeholder={'Password'} secureTextEntry />
             </View>
         );
     }
