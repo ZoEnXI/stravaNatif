@@ -1,51 +1,91 @@
-import { Button, Text } from '@react-navigation/elements';
-import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
-import {useEffect, useState} from "react";
-import auth, {FirebaseAuthTypes, getAuth, onAuthStateChanged} from "@react-native-firebase/auth";
+import {getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut} from '@react-native-firebase/auth';
+import {Button, Text} from '@react-navigation/elements';
+import {useEffect, useState} from 'react';
+import {Alert, StyleSheet, TextInput, View} from 'react-native';
 
 export function Home() {
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState<import('@react-native-firebase/auth').FirebaseAuthTypes.User | null>(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const [loading, setLoading] = useState<boolean>(true);
-    const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    function handleAuthStateChanged(user: import('@react-native-firebase/auth').FirebaseAuthTypes.User | null) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
 
     useEffect(() => {
-        auth().onAuthStateChanged(userState => {
-            setUser(userState);
-
-            if (loading) {
-                setLoading(false);
-            }
-        });
+        return onAuthStateChanged(getAuth(), handleAuthStateChanged);
     }, []);
+
+    const handleLogin = async () => {
+        try {
+            await signInWithEmailAndPassword(getAuth(), email, password);
+        } catch (error: any) {
+            Alert.alert('Erreur', error.message);
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            await signOut(getAuth());
+        } catch (error: any) {
+            Alert.alert('Erreur', error.message);
+        }
+    };
+
+    if (initializing) return null;
 
     if (!user) {
         return (
-            <View>
-                <Text>Login</Text>
-                <TextInput value={email} onChangeText={setEmail} textContentType={'emailAddress'} placeholder={'Email'} />
-                <TextInput value={password} onChangeText={setPassword} textContentType={'password'} placeholder={'Password'} secureTextEntry />
+            <View style={styles.container}>
+                <Text>Connexion</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    value={email}
+                    autoCapitalize="none"
+                    onChangeText={setEmail}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Mot de passe"
+                    value={password}
+                    secureTextEntry
+                    onChangeText={setPassword}
+                />
+                <Button onPress={handleLogin}>Se connecter</Button>
             </View>
         );
     }
+
     return (
         <View style={styles.container}>
-            <Text>Home Screen</Text>
+            <Text>Hello {user?.email}</Text>
             <Text>Open up 'src/App.tsx' to start working on your app!</Text>
             <Button screen="Profile" params={{ user: 'jane' }}>
                 Go to Profile
             </Button>
             <Button screen="Settings">Go to Settings</Button>
+            <Button onPress={handleLogout}>Sign out</Button>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10,
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 10,
+    },
+    input: {
+        width: 250,
+        height: 40,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        marginVertical: 5,
+        paddingHorizontal: 10,
+        borderRadius: 5,
+    },
 });
